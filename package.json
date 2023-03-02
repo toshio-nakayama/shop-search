@@ -1,0 +1,24 @@
+{
+  "name": "shop-search",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "dotenv": "^16.0.3",
+    "ejs": "~2.6.1",
+    "express": "~4.16.1",
+    "express-generator": "^4.16.1",
+    "global": "^4.4.0",
+    "http-errors": "~1.6.3",
+    "morgan": "~1.9.1",
+    "npm": "^9.5.1",
+    "yarn": "^1.22.19"
+  },
+  "devDependencies": {
+    "eslint": "^7.25.0"
+  }
+}
