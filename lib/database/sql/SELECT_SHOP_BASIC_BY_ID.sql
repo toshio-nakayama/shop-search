@@ -1,0 +1,6 @@
+SELECT
+  *
+FROM
+  T_SHOP
+WHERE
+  ID = ?
