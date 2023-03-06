@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <%- include('../_share/metadata.ejs') %>
+  <title>Document</title>
+  <%- include('../_share/stylesheets.ejs') %>
+  <link rel="stylesheet" href="/public/stylesheets/shop.css">
+</head>
+
+<body>
+  <div class="outerframe">
+    <%- include("../_share/navbar.ejs") %>
+    <main class="container">
+      <div class="border-bottom mt-5 mb-5">
+        <h1 class="display-4"><%= name %></h1>
+      </div>
+      <div>
+        <img class="img-fluid" src="/public/images/dummy/1150x250.png" alt="">
+      </div>
+      <div class="row">
+        <div class="col-md-8">
+          <h2 class="border-bottom mt-5 mb-2"><i class="fa fa-fw fa-book"></i>店舗情報</h2>
+          <table class="table table-bordered">
+            <colgroup>
+              <col class="bg-light" style="width:10rem">
+            </colgroup>
+            <tr>
+              <th>店名</th>
+              <td><%= name %></td>
+            </tr>
+            <tr>
+              <th>カテゴリー</th>
+              <td><%= categories %></td>
+            </tr>
+            <tr>
+              <th>電話</th>
+              <td><%= tel %></td>
+            </tr>
+            <tr>
+              <th>住所</th>
+              <td><%= address %></td>
+            </tr>
+            <tr>
+              <th>最寄駅</th>
+              <td><%= station %></td>
+            </tr>
+            <tr>
+              <th>駐車場</th>
+              <td><%= parking %></td>
+            </tr>
+            <tr>
+              <th>スマートフォンクーポン</th>
+              <td><%= coupon  %></td>
+            </tr>
+          </table>
+        </div>
+        <div class="col-md-4">
+          <button type="button" class="btn btn-warning mt-5 mb-5 pb-2">お気に入りに追加<i class="fa-regular fa-star"></i></button>
+        </div>
+      </div>
+    </main>
+    <%- include("../_share/footer.ejs") %>
+  </div>
+  <%- include("../_share/javascripts.ejs") %>
+</body>
+
+</html>
