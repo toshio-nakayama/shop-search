@@ -3,9 +3,10 @@ const path = require('path');
 const logger = require('./lib/log/logger.js');
 const accesslogger = require('./lib/log/accesslogger.js');
 const applicationlogger = require('./lib/log/applicationlogger.js');
+const accesscontrol = require('./lib/security/accesscontrol.js');
 const express = require('express');
 const favicon = require('serve-favicon');
-const { MySQLClient } = require('./lib/database/client.js');
+const flash = require('connect-flash');
 const app = express();
 
 app.set('view engine', 'ejs');
@@ -16,6 +17,11 @@ app.use("/public", express.static(path.join(__dirname, '/public')));
 
 app.use(accesslogger());
 
+app.use(express.urlencoded({extended:true}));
+app.use(flash());
+app.use(...accesscontrol.initialize());
+
+app.use('/account', require('./routes/account.js'));
 app.use('/search', require('./routes/search.js'));
 app.use('/shops', require('./routes/shops.js'));
 app.use('/', require('./routes/index.js'));
