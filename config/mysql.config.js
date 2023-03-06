@@ -4,7 +4,8 @@ module.exports = {
   USERNAME: process.env.MYSQL_USERNAME || 'root',
   PASSWORD: process.env.MYSQL_PASSWORD || 'mysql',
   DATABASE: process.env.MYSQL_DATABASE || 'shop_search',
-  CONNECTION_LIMIT: process.env.MYSQL_CONNECTION_LIMIT ? parseInt(process.env.MYSQL_CONNECTION_LIMIT) : 10,
-  QUEUE_LIMIT: process.env.MYSQL_QUEUE_LIMIT ? parseInt(process.env.MYSQL_QUEUE_LIMIT) : 0
-
+  CONNECTION_LIMIT: process.env.MYSQL_CONNECTION_LIMIT ?
+    parseInt(process.env.MYSQL_CONNECTION_LIMIT) : 10,
+  QUEUE_LIMIT: process.env.MYSQL_QUEUE_LIMIT ?
+    parseInt(process.env.MYSQL_QUEUE_LIMIT) : 0
 };
