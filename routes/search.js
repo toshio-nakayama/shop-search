@@ -1,10 +1,8 @@
-const MAX_ITEMS_PER_PAGE = require('../config/application.config.js').search.MAX_ITEMS_PER_PAGE;
 const router = require('express').Router();
 
 router.get('/', (req, res, next) => {
-  var page = req.query.page ? parseInt(req.query.page) : 1;
   var keyword = req.query.keyword || "";
-  var count, results;
+  var results;
 
   var dummyData = [
     {id:'1', name: 'テストショップ1', categories: '衣料品'},
@@ -25,20 +23,13 @@ router.get('/', (req, res, next) => {
   ];
 
   if (keyword) {
-    count = dummyData.length;
     results = dummyData;
   } else {
-    count = MAX_ITEMS_PER_PAGE;
     results = {};
   }
   res.render('./search/list.ejs', {
     keyword,
-    count,
-    results,
-    pagination:{
-      max: Math.ceil(count / MAX_ITEMS_PER_PAGE),
-      current:page
-    }
+    results
   });
 });
 

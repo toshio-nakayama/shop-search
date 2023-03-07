@@ -14,15 +14,19 @@
 
     <main role="main" class="container">
       <div class="border-bottom">
-        <form action="/search" method="GET" class="mt-5 mb-5">
-          <div class="form-group row justify-content-center">
-            <div class="input-group mt-3 mb-3 col-sm-8">
-              <input type="text" class="form-control" id="keyword" name="keyword" value="<%= keyword %>" autofocus />
-              <div class="input-group-append">
-                <button class="btn btn-secondary" type="submit"><i class="fa fa-fw fa-search"></i></button>
-              </div>
-            </div>
-          </div>
+        <form action="/search" method="GET" class="form-inline my-5 justify-content-center">
+          <label class="sr-only" for="prefecture">State</label>
+          <select id="prefecture" name="prefecture" class="form-control mb-2 mr-sm-2">
+            <option value="">都道府県</option>
+          </select>
+          <label class="sr-only" for="city">State</label>
+          <select id="city" name="city" class="form-control mb-2 mr-sm-2">
+            <option selected>市区町村</option>
+            <option>...</option>
+          </select>
+          <label class="sr-only" for="keyword">keyword</label>
+          <input type="text" class="form-control mb-2 mr-sm-2 col-md-4" id="keyword" name="keyword" autofocus="autofocus" placeholder="キーワード" value="<%= keyword %>">
+          <button class="btn btn-secondary mb-2 mr-sm-2" type="submit"><i class="fa fa-fw fa-search"></i></button>
         </form>
       </div>
 
@@ -31,22 +35,6 @@
         <%- include("./item.ejs", item) %>
         <% } %>
       </div>
-
-      <nav>
-        <ul class="pagination justify-content-center">
-          <% for(var i = 1;i <= pagination.max;i++){  %>
-          <% if(pagination.current !== i){%>
-          <% if(i <=3 || (pagination.current - 3 < i && i < pagination.current + 3) || pagination.max -3 < i){ %>
-          <li class="page-item"><a href="/search/?keyword=<%=keyword%>&page=<%= i %>" class="page-link"><%= i %></a></li>
-          <% }else{ %>
-          .
-          <% } %>
-          <% }else{ %>
-          <li class="page-item active"><span class="page-link disable"><%= i  %></span></li>
-          <%  } %>
-          <% } %>
-        </ul>
-      </nav>
     </main>
 
     <%- include("../_share/footer.ejs") %>
