@@ -1,3 +1,4 @@
+const IS_PRODUCTION = process.env.NODE_ENV === "production";
 const appconfig = require('./config/application.config.js');
 const dbconfig = require('./config/mysql.config.js');
 const path = require('path');
@@ -7,6 +8,7 @@ const applicationlogger = require('./lib/log/applicationlogger.js');
 const accesscontrol = require('./lib/security/accesscontrol.js');
 const express = require('express');
 const favicon = require('serve-favicon');
+const cookie = require('cookie-parser');
 const session = require('express-session');
 const MySqlStore = require('express-mysql-session')(session);
 const flash = require('connect-flash');
@@ -20,6 +22,7 @@ app.use('/public', express.static(path.join(__dirname, '/public')));
 
 app.use(accesslogger());
 
+app.use(cookie());
 app.use(session({
   store: new MySqlStore({
     host: dbconfig.HOST,
@@ -28,11 +31,15 @@ app.use(session({
     password: dbconfig.PASSWORD,
     database: dbconfig.DATABASE
   }),
+  cookie: {
+    secure: IS_PRODUCTION
+  },
   secret: appconfig.security.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
   name: 'sid'
 }));
+
 
 app.use(express.urlencoded({extended:true}));
 app.use(flash());
