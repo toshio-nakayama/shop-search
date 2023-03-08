@@ -1,8 +1,7 @@
 const router = require('express').Router();
-const { authenticate, authorize, PRIVILEGE } = require('../lib/security/accesscontrol.js');
+const { authenticate } = require('../lib/security/accesscontrol.js');
 const { MySQLClient, sql } = require('../lib/database/client.js');
 const { check, validationResult } = require('express-validator');
-const Transaction = require('../lib/database/transaction.js');
 
 var createErrorMessage = function (error) {
   var result = '<div class="alert alert-danger">';
@@ -21,7 +20,7 @@ var createErrorMessages = function (errors) {
   return result;
 };
 
-router.get('/', authorize(PRIVILEGE.NORMAL), (req, res, next) => {
+router.get('/', (req, res, next) => {
   res.render('./account/index.ejs');
 });
 
@@ -89,7 +88,7 @@ router.post('/register/execute', [
 
 router.post('/logout', (req, res, next) => {
   req.logout();
-  res.redirect('/account/login');
+  res.redirect('/');
 });
 
 module.exports = router;

@@ -14,20 +14,12 @@
     <main role="main" class="container d-flex justify-content-md-center">
       <div class="align-self-center col-md-10">
         <h1 class="display-1 text-center my-5"><i class="fa fa-fw fa-shop"></i> search</h1>
-        <form action="/search" method="GET" class="form-inline my-5 justify-content-center">
-            <label class="sr-only" for="prefecture">State</label>
-            <select id="prefecture" name="prefecture" class="form-control mb-2 mr-sm-2">
-              <option value="">都道府県</option>
-            </select>
-            <label class="sr-only" for="city">State</label>
-            <select id="city" name="city" class="form-control mb-2 mr-sm-2">
-              <option selected>市区町村</option>
-              <option>...</option>
-            </select>
-            <label class="sr-only" for="">keyword</label>
-          <input type="text" class="form-control mb-2 mr-sm-2 col-md-4" id="keyword" name="keyword" autofocus="autofocus" placeholder="キーワード">
-          <button class="btn btn-secondary mb-2 mr-sm-2" type="submit"><i class="fa fa-fw fa-search"></i></button>
-        </form>
+        <div class="d-flex justify-content-center">
+          <a class="btn btn-secondary w-50" href="/account/login">ログイン</a>
+        </div>
+        <div class="d-flex justify-content-center mt-3">
+          <a class="btn btn-secondary w-50" href="/account/register">新規登録</a>
+        </div>
       </div>
     </main>
     <%- include("./_share/footer.ejs") %>

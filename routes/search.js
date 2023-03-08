@@ -1,7 +1,8 @@
 const router = require('express').Router();
 const { MySQLClient, sql } = require('../lib/database/client.js');
+const { authenticate, authorize, PRIVILEGE } = require('../lib/security/accesscontrol.js');
 
-router.get('/', async(req, res, next) => {
+router.get('/',  authorize(PRIVILEGE.NORMAL),async(req, res, next) => {
   var prefectures = await MySQLClient.executeQuery(
     await sql('SELECT_PREFECTURES')
   );

@@ -1,6 +1,7 @@
 const router = require('express').Router();
+const { authenticate, authorize, PRIVILEGE } = require('../lib/security/accesscontrol.js');
 
-router.get('/', (req, res, next)=>{
+router.get('/', authorize(PRIVILEGE.NORMAL),(req, res, next)=>{
   var data = {
     name: 'テストショップ',
     categories: 'レストラン',
