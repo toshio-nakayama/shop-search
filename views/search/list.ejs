@@ -15,17 +15,21 @@
     <main role="main" class="container">
       <div class="border-bottom">
         <form action="/search" method="GET" class="form-inline my-5 justify-content-center">
-          <label class="sr-only" for="prefecture">State</label>
+          <label class="sr-only" for="prefecture">都道府県</label>
           <select id="prefecture" name="prefecture" class="form-control mb-2 mr-sm-2">
             <option value="">都道府県</option>
+            <% for(var i = 0; i < prefectures.length; i++) { %>
+              console.log(prefectures[i].pref_code + prefectures[i].pref_name);
+            <option value="<%= prefectures[i].pref_code %>"><%= prefectures[i].pref_name %></option>
+            <% } %>
           </select>
-          <label class="sr-only" for="city">State</label>
+          <label class="sr-only" for="city">市区町村</label>
           <select id="city" name="city" class="form-control mb-2 mr-sm-2">
             <option selected>市区町村</option>
             <option>...</option>
           </select>
           <label class="sr-only" for="keyword">keyword</label>
-          <input type="text" class="form-control mb-2 mr-sm-2 col-md-4" id="keyword" name="keyword" autofocus="autofocus" placeholder="キーワード" value="<%= keyword %>">
+          <input type="text" class="form-control mb-2 mr-sm-2 col-md-4" id="keyword" name="keyword" autofocus="autofocus" placeholder="キーワード">
           <button class="btn btn-secondary mb-2 mr-sm-2" type="submit"><i class="fa fa-fw fa-search"></i></button>
         </form>
       </div>
@@ -41,6 +45,29 @@
 
   </div>
   <%- include("../_share/javascripts.ejs") %>
+  <script>
+    function _(element) {
+      return document.getElementById(element);
+    }
+
+    function fetch_data(parent_element, child_element) {
+      const url = 'https://www.land.mlit.go.jp/webland/api/CitySearch?area=';
+      fetch(url + parent_element.value + '').then((response) => {
+        return response.json();
+      }).then((response) => {
+        const cities = JSON.parse(JSON.stringify(response.data));
+        var html = '<option value="">市区町村</option>';
+        for (var i = 0; i < cities.length; i++) {
+          html += '<option value="' + cities[i].id + '">' + cities[i].name + '</option>';
+        }
+        child_element.innerHTML = html;
+      });
+    }
+
+    _('prefecture').onchange = function() {
+      fetch_data(_('prefecture'), _('city'));
+    };
+  </script>
 </body>
 
 </html>
