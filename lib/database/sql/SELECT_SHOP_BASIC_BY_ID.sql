@@ -1,6 +1,5 @@
 SELECT
-  *
+  count(*) as count
 FROM
-  T_SHOP
-WHERE
-  ID = ?
+  t_user
+WHERE email LIKE ?

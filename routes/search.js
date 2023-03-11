@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { MySQLClient, sql } = require('../lib/database/client.js');
-const { authorize, PRIVILEGE } = require('../lib/security/accesscontrol.js');
-const yahooapis = require('../lib/ajax/yahooapi.js');
+const { authorize, PRIVILEGE } = require('../lib/security/access-control.js');
+const yahooApi = require('../lib/ajax/yahoo-api.js');
 
 router.get('/', authorize(PRIVILEGE.NORMAL), async (req, res, next) => {
   var prefectures = await MySQLClient.executeQuery(
@@ -14,10 +14,9 @@ router.get('/', authorize(PRIVILEGE.NORMAL), async (req, res, next) => {
 
   try {
     if (prefecture && city && keyword) {
-      results = yahooapis.deserialize(
-        await yahooapis.localSearch(keyword, city, 'json', true)
+      results = yahooApi.deserialize(
+        await yahooApi.localSearch(keyword, city, 'json', true)
       );
-      // console.log(results);
     } else {
       results = [];
     }

@@ -2,7 +2,7 @@
   <% var shop = JSON.stringify(item) %>
   <a href="javascript:document.forms.form_shop.submit();" class="text-body">
     <% if(typeof item.image == 'undefined'){ %>
-    <img src="/public/images/dummy/286x180.png" class="card-img-top" alt="">
+    <img src="/public/image/default/286x180.png" class="card-img-top" alt="">
     <% } else {%>
     <img src="<%= item.image %>" class="card-img-top" alt="">
     <% } %>

@@ -1,25 +1,25 @@
-
-html, body {
+html,
+body {
   height: 100%;
 }
 
-.outerframe {
+.outer-frame {
   min-height: 100%;
   position: relative;
 }
 
-.outerframe > .container {
+.outer-frame>.container {
   padding-bottom: 10rem;
 }
 
-.outerframe > footer {
+.outer-frame>footer {
   position: absolute;
   bottom: 0;
   width: 100%;
   height: 8rem;
 }
 
-.balloon::before{
+.balloon::before {
   content: '';
   position: absolute;
   display: block;
@@ -27,12 +27,12 @@ html, body {
   height: 0;
   left: -15px;
   top: 15px;
-  border-right: 15px solid  rgba(0,0,0,.125);
+  border-right: 15px solid rgba(0, 0, 0, .125);
   border-top: 15px solid transparent;
   border-bottom: 15px solid transparent;
 }
 
-.balloon::after{
+.balloon::after {
   content: '';
   position: absolute;
   display: block;
@@ -40,7 +40,7 @@ html, body {
   height: 0;
   left: -13px;
   top: 15px;
-  border-right: 15px solid  #f8f9fa;
+  border-right: 15px solid #f8f9fa;
   border-top: 15px solid transparent;
   border-bottom: 15px solid transparent;
 }

@@ -1,12 +1,12 @@
 const router = require('express').Router();
-const { authorize, PRIVILEGE } = require('../lib/security/accesscontrol.js');
+const { authorize, PRIVILEGE } = require('../lib/security/access-control.js');
 
 router.post('/', authorize(PRIVILEGE.NORMAL), (req, res, next) => {
   const shop = JSON.parse(req.body.shop);
   res.render('./shops/index.ejs', processData(shop));
 });
 
-function processData(shop){
+function processData(shop) {
   //genre
   if (typeof shop.genre == 'undefined') {
     shop.genre = '-';
@@ -38,8 +38,8 @@ function processData(shop){
     shop.coupon = JSON.parse(shop.coupon) ? '有' : '無';
   }
   //image
-  if(typeof shop.image == 'undefined'){
-    shop.image = '/public/images/dummy/1150x250.png';
+  if (typeof shop.image == 'undefined') {
+    shop.image = '/public/image/default/1150x250.png';
   }
   return shop;
 }

@@ -1,7 +1,22 @@
 {
-  "validation":{
-    "message":{
-      "required":"この項目は必須入力です。"
+  "validation": {
+    "message": {
+      "username": {
+        "required": "ユーザー名は必須入力です。",
+        "range": "ユーザー名は3文字以上10文字以下で入力してください。"
+      },
+      "email": {
+        "required": "メールアドレスは必須入力です。",
+        "pattern": "メールアドレスを正しく入力してください。"
+      },
+      "password": {
+        "required": "パスワードは必須入力です。",
+        "range": "パスワードは3文字以上10文字以下で入力してください。",
+        "pattern": "パスワードは英小文字、英大文字、数字を含めてください。"
+      },
+      "register": {
+        "already": "すでに登録されています。"
+      }
     }
   }
 }

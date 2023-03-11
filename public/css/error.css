@@ -2,16 +2,16 @@ html,
 body {
   height: 100%;
 }
-.outerframe {
+.outer-frame {
   position: relative;
 }
-.outerframe nav {
+.outer-frame nav {
   position: absolute;
   top: 0;
   right: 0;
   left: 0;
 }
-.outerframe main {
+.outer-frame main {
   display: flex;
   position: absolute;
   top: 0;
@@ -19,7 +19,7 @@ body {
   left: 0;
   bottom: 0;
 }
-.outerframe footer {
+.outer-frame footer {
   position: absolute;
   right: 0;
   left: 0;
@@ -163,6 +163,6 @@ svg {
 /*
   503 page
 */
-.outerframe i {
+.outer-frame i {
   font-size: 12rem;
 }

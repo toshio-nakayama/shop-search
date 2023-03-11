@@ -1,11 +1,11 @@
 const IS_PRODUCTION = process.env.NODE_ENV === "production";
-const appconfig = require('./config/application.config.js');
-const dbconfig = require('./config/mysql.config.js');
+const appConfig = require('./config/application.config.js');
+const dbConfig = require('./config/mysql.config.js');
 const path = require('path');
 const logger = require('./lib/log/logger.js');
-const accesslogger = require('./lib/log/accesslogger.js');
-const applicationlogger = require('./lib/log/applicationlogger.js');
-const accesscontrol = require('./lib/security/accesscontrol.js');
+const accessLogger = require('./lib/log/access-logger.js');
+const applicationLogger = require('./lib/log/application-logger.js');
+const accessControl = require('./lib/security/access-control.js');
 const express = require('express');
 const favicon = require('serve-favicon');
 const cookie = require('cookie-parser');
@@ -21,7 +21,7 @@ app.disable('x-powered-by');
 app.use(favicon(path.join(__dirname, '/public/favicon.ico')));
 app.use('/public', express.static(path.join(__dirname, '/public')));
 
-app.use(accesslogger());
+app.use(accessLogger());
 
 app.use(i18n.init);
 i18n.configure({
@@ -32,16 +32,16 @@ i18n.configure({
 app.use(cookie());
 app.use(session({
   store: new MySqlStore({
-    host: dbconfig.HOST,
-    port: dbconfig.PORT,
-    user: dbconfig.USERNAME,
-    password: dbconfig.PASSWORD,
-    database: dbconfig.DATABASE
+    host: dbConfig.HOST,
+    port: dbConfig.PORT,
+    user: dbConfig.USERNAME,
+    password: dbConfig.PASSWORD,
+    database: dbConfig.DATABASE
   }),
   cookie: {
     secure: IS_PRODUCTION
   },
-  secret: appconfig.security.SESSION_SECRET,
+  secret: appConfig.security.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
   name: 'sid'
@@ -49,22 +49,15 @@ app.use(session({
 
 app.use(express.urlencoded({ extended: true }));
 app.use(flash());
-app.use(...accesscontrol.initialize());
+app.use(...accessControl.initialize());
 
 app.use('/account', require('./routes/account.js'));
 app.use('/search', require('./routes/search.js'));
 app.use('/shops', require('./routes/shops.js'));
 app.use('/', require('./routes/index.js'));
 
-app.use(applicationlogger());
+app.use(applicationLogger());
 
-app.listen(appconfig.PORT, () => {
-  logger.application.info(`Application listening at :${appconfig.PORT}`);
-});
-
-app.get('/test', async (req, res, next)=>{
-  const yahooapis = require('./lib/ajax/yahooapi.js');
-  var result = await yahooapis.localSearch('パスタ', '13103', 'json', true);
-  const r = yahooapis.deserialize(result);
-  console.log(r);
+app.listen(appConfig.PORT, () => {
+  logger.application.info(`Application listening at :${appConfig.PORT}`);
 });
