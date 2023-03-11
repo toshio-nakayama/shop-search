@@ -38,7 +38,9 @@ router.get('/register', (req, res) => {
 
 router.post('/register/execute', [
   check('username')
-    .not().isEmpty().withMessage('ユーザー名は必須入力です。')
+    .not().isEmpty().withMessage((value,{req})=>{
+      return req.__('validation.message.required');
+    })
     .isLength({ min: 3, max: 10 }).withMessage('ユーザー名は3文字以上10文字以下で入力してください。'),
   check('email')
     .not().isEmpty().withMessage('メールアドレスは必須入力です。')

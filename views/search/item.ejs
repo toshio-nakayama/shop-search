@@ -1,9 +1,22 @@
 <div class="card">
-  <a href="/shops/<%= id %>" class="text-body">
+  <% var shop = JSON.stringify(item) %>
+  <a href="javascript:document.forms.form_shop.submit();" class="text-body">
+    <% if(typeof item.image == 'undefined'){ %>
     <img src="/public/images/dummy/286x180.png" class="card-img-top" alt="">
+    <% } else {%>
+    <img src="<%= item.image %>" class="card-img-top" alt="">
+    <% } %>
+
     <div class="card-body">
-      <h5 class="card-title"><%= name %></h5>
-      <p class="card-text"><%= categories %></p>
+      <h5 class="card-title over-text"><%= item.name %></h5>
+      <% if(typeof item.genre[0].Name == 'undefined') {%>
+      <p class="card-text">''</p>
+      <% }else{ %>
+      <p class="card-text"><%= item.genre[0].Name %></p>
+      <% } %>
     </div>
   </a>
+  <form style="display:none;" name="form_shop" action="/shops/" method="POST">
+    <input type="hidden" name="shop" value="<%=shop%>">
+  </form>
 </div>

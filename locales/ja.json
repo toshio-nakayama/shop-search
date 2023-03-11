@@ -1,0 +1,7 @@
+{
+  "validation":{
+    "message":{
+      "required":"この項目は必須入力です。"
+    }
+  }
+}

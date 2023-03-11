@@ -1,0 +1,14 @@
+td {
+  white-space: pre;
+}
+
+.shop-image {
+  width: 1150px;
+  height: 250px;
+}
+
+.shop-image img {
+  width: 1150px;
+  height: 250px;
+  object-fit: cover;
+}

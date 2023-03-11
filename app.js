@@ -12,6 +12,7 @@ const cookie = require('cookie-parser');
 const session = require('express-session');
 const MySqlStore = require('express-mysql-session')(session);
 const flash = require('connect-flash');
+const i18n = require('i18n');
 const app = express();
 
 app.set('view engine', 'ejs');
@@ -22,6 +23,12 @@ app.use('/public', express.static(path.join(__dirname, '/public')));
 
 app.use(accesslogger());
 
+app.use(i18n.init);
+i18n.configure({
+  locales: ['ja'],
+  directory: __dirname + '/locales',
+  objectNotation: true
+});
 app.use(cookie());
 app.use(session({
   store: new MySqlStore({
@@ -40,8 +47,7 @@ app.use(session({
   name: 'sid'
 }));
 
-
-app.use(express.urlencoded({extended:true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(flash());
 app.use(...accesscontrol.initialize());
 
@@ -56,4 +62,9 @@ app.listen(appconfig.PORT, () => {
   logger.application.info(`Application listening at :${appconfig.PORT}`);
 });
 
-
+app.get('/test', async (req, res, next)=>{
+  const yahooapis = require('./lib/ajax/yahooapi.js');
+  var result = await yahooapis.localSearch('パスタ', '13103', 'json', true);
+  const r = yahooapis.deserialize(result);
+  console.log(r);
+});

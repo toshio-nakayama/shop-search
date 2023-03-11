@@ -5,6 +5,7 @@
   <%- include('../_share/metadata.ejs') %>
   <title>Document</title>
   <%- include('../_share/stylesheets.ejs') %>
+  <link rel="stylesheet" href="/public/stylesheets/list.css">
 </head>
 
 <body>
@@ -16,27 +17,28 @@
       <div class="border-bottom">
         <form action="/search" method="GET" class="form-inline my-5 justify-content-center">
           <label class="sr-only" for="prefecture">都道府県</label>
-          <select id="prefecture" name="prefecture" class="form-control mb-2 mr-sm-2">
+          <select id="prefecture" name="prefecture" class="form-control mb-2 mr-sm-2" required>
             <option value="">都道府県</option>
             <% for(var i = 0; i < prefectures.length; i++) { %>
-              console.log(prefectures[i].pref_code + prefectures[i].pref_name);
             <option value="<%= prefectures[i].pref_code %>"><%= prefectures[i].pref_name %></option>
             <% } %>
           </select>
           <label class="sr-only" for="city">市区町村</label>
-          <select id="city" name="city" class="form-control mb-2 mr-sm-2">
+          <select id="city" name="city" class="form-control mb-2 mr-sm-2" required>
             <option selected>市区町村</option>
             <option>...</option>
           </select>
           <label class="sr-only" for="keyword">keyword</label>
-          <input type="text" class="form-control mb-2 mr-sm-2 col-md-4" id="keyword" name="keyword" autofocus="autofocus" placeholder="キーワード">
+          <input type="text" class="form-control mb-2 mr-sm-2 col-md-4" id="keyword" name="keyword" autofocus="autofocus" placeholder="キーワード" required>
           <button class="btn btn-secondary mb-2 mr-sm-2" type="submit"><i class="fa fa-fw fa-search"></i></button>
         </form>
       </div>
 
       <div class="card-columns mt-5">
-        <% for (var item of results) { %>
-        <%- include("./item.ejs", item) %>
+        <% if(locals.results){ %>
+          <% for (var item of results) { %>
+            <%- include("./item.ejs", {item:item}) %>
+            <% } %>
         <% } %>
       </div>
     </main>
@@ -67,6 +69,7 @@
     _('prefecture').onchange = function() {
       fetch_data(_('prefecture'), _('city'));
     };
+
   </script>
 </body>
 

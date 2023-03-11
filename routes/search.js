@@ -1,33 +1,30 @@
 const router = require('express').Router();
 const { MySQLClient, sql } = require('../lib/database/client.js');
-const { authenticate, authorize, PRIVILEGE } = require('../lib/security/accesscontrol.js');
+const { authorize, PRIVILEGE } = require('../lib/security/accesscontrol.js');
+const yahooapis = require('../lib/ajax/yahooapi.js');
 
-router.get('/',  authorize(PRIVILEGE.NORMAL),async(req, res, next) => {
+router.get('/', authorize(PRIVILEGE.NORMAL), async (req, res, next) => {
   var prefectures = await MySQLClient.executeQuery(
     await sql('SELECT_PREFECTURES')
   );
-  var results = [
-    {id:'1', name: 'テストショップ1', categories: '衣料品'},
-    {id:'2', name: 'テストショップ3', categories: '中華料理'},
-    {id:'3', name: 'テストショップ2', categories: '食料品'},
-    {id:'4', name: 'テストショップ4', categories: 'イタリアン'},
-    {id:'5', name: 'テストショップ5', categories: 'フレンチ'},
-    {id:'6', name: 'テストショップ6', categories: '衣料品'},
-    {id:'7', name: 'テストショップ7', categories: '中華料理'},
-    {id:'8', name: 'テストショップ8', categories: '食料品'},
-    {id:'9', name: 'テストショップ9', categories: 'イタリアン'},
-    {id:'10', name: 'テストショップ10', categories: 'フレンチ'},
-    {id:'11', name: 'テストショップ11', categories: '衣料品'},
-    {id:'12', name: 'テストショップ12', categories: '中華料理'},
-    {id:'13', name: 'テストショップ13', categories: '食料品'},
-    {id:'14', name: 'テストショップ14', categories: 'イタリアン'},
-    {id:'15', name: 'テストショップ15', categories: 'フレンチ'},
-  ];
-  prefectures.forEach(element => {console.log(element.pref_code + element.pref_name);
-    
-  });
-  console.log(prefectures);
-  res.render('./search/list.ejs', { results, prefectures});
+  var prefecture = req.query.prefecture || '';
+  var city = req.query.city || '';
+  var keyword = req.query.keyword || '';
+  var results;
+
+  try {
+    if (prefecture && city && keyword) {
+      results = yahooapis.deserialize(
+        await yahooapis.localSearch(keyword, city, 'json', true)
+      );
+      // console.log(results);
+    } else {
+      results = [];
+    }
+    res.render('./search/list.ejs', { results, prefectures });
+  } catch (err) {
+    next(err);
+  }
 });
 
 module.exports = router;
