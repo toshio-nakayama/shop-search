@@ -24,12 +24,11 @@ app.use('/public', express.static(path.join(__dirname, '/public')));
 
 app.use(accessLogger());
 
-app.use(i18n.init);
 i18n.configure({
-  locales: ['ja'],
+  locales: ['en','ja'],
   directory: __dirname + '/locales',
-  objectNotation: true
 });
+app.use(i18n.init);
 app.use(cookie());
 app.use(session({
   store: new MySqlStore({
