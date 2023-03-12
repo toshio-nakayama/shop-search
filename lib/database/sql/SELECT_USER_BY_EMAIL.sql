@@ -1,6 +1,6 @@
 SELECT
   *
 FROM
-  t_user
+  users
 WHERE
   email = ?

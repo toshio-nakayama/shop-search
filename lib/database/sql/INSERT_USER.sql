@@ -1,7 +1,7 @@
-INSERT INTO T_USER (
-  `NAME`,
-  `EMAIL`,
-  `PASSWORD`
+INSERT INTO `users` (
+  `name`,
+  `email`,
+  `password`
 ) VALUES (
   ?,
   ?,
