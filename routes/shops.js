@@ -1,9 +1,18 @@
 const router = require('express').Router();
 const { authorize, PRIVILEGE } = require('../lib/security/access-control.js');
+const yahooApi = require('../lib/ajax/yahoo-api.js');
 
-router.post('/', authorize(PRIVILEGE.NORMAL), (req, res, next) => {
-  const shop = JSON.parse(req.body.shop);
-  res.render('./shops/index.ejs', processData(shop));
+router.get('/:uid', authorize(PRIVILEGE.NORMAL), async (req, res, next) => {
+  const uid = req.params.uid;
+  var results;
+  try {
+    results = yahooApi.deserialize(
+      await yahooApi.localSearchByUid(uid)
+    );
+  } catch (err) {
+    next(err);
+  }
+  res.render('./shops/index.ejs', processData(results[0]));
 });
 
 function processData(shop) {

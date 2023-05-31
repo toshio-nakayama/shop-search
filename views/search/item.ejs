@@ -1,6 +1,6 @@
 <div class="card">
-  <% var shop = JSON.stringify(item) %>
-  <a href="javascript:document.forms.form_shop.submit();" class="text-body">
+  <% var uid = item.uid %>
+  <a href="/shops/<%= uid %>" class="text-body">
     <% if(typeof item.image == 'undefined'){ %>
     <img src="/public/image/default/286x180.png" class="card-img-top" alt="">
     <% } else {%>
@@ -16,7 +16,4 @@
       <% } %>
     </div>
   </a>
-  <form style="display:none;" name="form_shop" action="/shops/" method="POST">
-    <input type="hidden" name="shop" value="<%=shop%>">
-  </form>
 </div>
